@@ -12,3 +12,12 @@ html, body {
 html {
   scroll-behavior: smooth;
 }
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+

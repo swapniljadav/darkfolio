@@ -1,62 +1,89 @@
 'use client';
 
+import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import FadeInWhenVisible from '@/components/FadeInWhenVisible';
 
 export default function Home() {
+  const aboutRef = useRef<HTMLDivElement>(null);
+
+  const scrollToAbout = () => {
+    aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center px-6">
-      {/* Hero Section */}
-      <FadeInWhenVisible>
-      <section className="flex flex-col justify-center items-center text-center min-h-screen">
-          <h1 className="text-4xl font-bold font-sora leading-tight sm:text-5xl md:text-6xl">
+    <main className="relative overflow-x-hidden bg-black text-white">
+      {/* Gradient Background Blobs */}
+      <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] bg-purple-500 rounded-full blur-3xl opacity-20 z-0" />
+      <div className="absolute bottom-[-100px] right-[-80px] w-[250px] h-[250px] bg-pink-500 rounded-full blur-2xl opacity-20 z-0" />
+
+      {/* Content Wrapper */}
+      <div className="relative z-10">
+
+        {/* HERO SECTION */}
+        <section className="h-screen w-full flex flex-col justify-center items-center text-center px-6">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-4xl sm:text-5xl md:text-6xl font-sora font-bold leading-tight"
+          >
             Hi, I’m Swapnil
-          </h1>
-          <p className="text-lg font-inter mt-4 text-gray-300 sm:text-xl md:text-2xl">
-            I craft backend systems and modern web dashboards that run at scale.
-          </p>
-          <div className="mt-6">
-            <button className="bg-white text-black font-bold font-inter px-6 py-2 rounded-full hover:bg-gray-200 transition">
-              View My Work
-            </button>
-          </div>
-          {/* Scroll Down Arrow */}
-          <div className="mt-12 animate-bounce">
-            <a href="#about" className="text-gray-400 hover:text-white transition" aria-label="Scroll down">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </a>
-          </div>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="text-base sm:text-lg md:text-xl text-gray-300 font-inter mt-4 max-w-md"
+          >
+            I craft robust backend systems and clean, modern dashboards that scale.
+          </motion.p>
+
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            onClick={scrollToAbout}
+            className="mt-10 px-6 py-2 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition"
+          >
+            ↓
+          </motion.button>
         </section>
-      </FadeInWhenVisible>
 
-      {/* About Me Section */}
-      <FadeInWhenVisible>
-      <section id="about" className="w-full max-w-md mt-4 text-center sm:mt-8">
-          <h2 className="text-2xl font-bold font-sora mb-4 sm:text-3xl">About Me</h2>
-          <p className="text-gray-400 font-inter text-base sm:text-lg leading-relaxed">
-            I’m a backend-focused developer based in India, specializing in scalable banking systems,
-            batch processors, and enterprise dashboards. With over a decade in PSU banking IT, I’ve
-            built platforms that handle millions of transactions, and I love turning complexity into simplicity.
-          </p>
+        {/* ABOUT SECTION */}
+        <section
+          ref={aboutRef}
+          className="min-h-screen flex flex-col justify-center items-center text-center px-6"
+        >
+          <FadeInWhenVisible>
+            <h2 className="text-2xl sm:text-3xl font-sora font-bold mb-4">
+              About Me
+            </h2>
+          </FadeInWhenVisible>
 
-          <ul className="text-left mt-6 text-gray-300 font-inter space-y-2 text-sm sm:text-base">
-            <li>✅ Built scalable financial APIs for PSU banks</li>
-            <li>✅ Designed real-time dashboards for service monitoring</li>
-            <li>✅ Comfortable with Spring Boot, Oracle, React, RHEL</li>
-          </ul>
+          <FadeInWhenVisible>
+            <p className="text-gray-400 max-w-md font-inter text-base sm:text-lg leading-relaxed">
+              Backend-focused developer based in India. I specialize in scalable banking systems,
+              batch processors, and enterprise dashboards. 10+ years in PSU banking IT.
+            </p>
+          </FadeInWhenVisible>
 
-          <div className="mt-6">
-            <a
-              href="/Swapnil_Jadav_Resume.pdf"
-              className="inline-block px-5 py-2 border border-white rounded-full hover:bg-white hover:text-black transition font-inter text-sm sm:text-base"
-              download
+          <FadeInWhenVisible>
+            <button
+              onClick={scrollToTop}
+              className="mt-10 px-5 py-2 rounded-full border border-white text-gray-300 hover:bg-white hover:text-black transition"
             >
-              Download Resume
-            </a>
-          </div>
+              ↑ Back to Top
+            </button>
+          </FadeInWhenVisible>
         </section>
-      </FadeInWhenVisible>
+
+      </div>
     </main>
   );
 }

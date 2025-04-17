@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import ProjectModal from './ProjectModal';
-import { ChevronDown } from 'lucide-react';
 
 interface Project {
   id: string;
@@ -55,7 +53,18 @@ const projects: Project[] = [
 export default function ProjectsSection() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeProject = projects.find((p) => p.id === activeId);
-  const swipeHandlers = useSwipeable({ trackMouse: true });
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      containerRef.current?.scrollBy({ left: 320, behavior: 'smooth' });
+    },
+    onSwipedRight: () => {
+      containerRef.current?.scrollBy({ left: -320, behavior: 'smooth' });
+    },
+    trackMouse: true,
+  });
 
   return (
     <section id="projects" className="w-full px-6 py-20 text-left relative overflow-hidden">
@@ -63,51 +72,42 @@ export default function ProjectsSection() {
 
       <div
         {...swipeHandlers}
-        id="projects-container"
-        className="overflow-hidden"
+        ref={containerRef}
+        className="overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide flex gap-6"
       >
-        <motion.div
-          className="flex gap-6 w-max scroll-smooth snap-x snap-mandatory scrollbar-hide"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{
-            ease: 'easeInOut',
-            duration: 60,
-            repeat: Infinity,
-          }}
-        >
-          {[...projects, ...projects].map((project, index) => (
-            <div
-              key={`${project.id}-${index}`}
-              onClick={() => setActiveId(project.id)}
-              className="snap-start shrink-0 cursor-pointer bg-gradient-to-br from-[#1c1c1c] to-[#101010] border border-gray-700 rounded-xl w-[300px] p-5 hover:border-white transition shadow-lg hover:shadow-white/10"
-            >
-              <div className="rounded-md overflow-hidden mb-3 border border-gray-700">
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x160?text=Project';
-                  }}
-                  className="w-full h-40 object-cover grayscale hover:grayscale-0 transition duration-500"
-                />
-              </div>
-              <h3 className="text-lg font-bold font-sora mb-2">{project.title}</h3>
-              <p className="text-sm text-gray-400 mb-3 line-clamp-4">{project.description}</p>
-              <div className="flex flex-wrap gap-1 text-xs text-gray-300 font-mono">
-                {project.techStack.slice(0, 4).map((tech) => (
-                  <span
-                    key={tech}
-                    className="bg-white/10 border border-white/10 px-2 py-1 rounded-full"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            onClick={() => setActiveId(project.id)}
+            className="snap-start shrink-0 cursor-pointer bg-gradient-to-br from-[#1c1c1c] to-[#101010] border border-gray-700 rounded-xl w-[300px] p-5 hover:border-white transition shadow-lg hover:shadow-white/10"
+          >
+            <div className="rounded-md overflow-hidden mb-3 border border-gray-700">
+              <img
+                src={project.imageUrl}
+                alt={project.title}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    'https://via.placeholder.com/300x160?text=Project';
+                }}
+                className="w-full h-40 object-cover grayscale hover:grayscale-0 transition duration-500"
+              />
             </div>
-          ))}
-        </motion.div>
+            <h3 className="text-lg font-bold font-sora mb-2">{project.title}</h3>
+            <p className="text-sm text-gray-400 mb-3 line-clamp-4">{project.description}</p>
+            <div className="flex flex-wrap gap-1 text-xs text-gray-300 font-mono">
+              {project.techStack.slice(0, 4).map((tech) => (
+                <span
+                  key={tech}
+                  className="bg-white/10 border border-white/10 px-2 py-1 rounded-full"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-      
+
       {/* Modal */}
       {activeProject && (
         <ProjectModal

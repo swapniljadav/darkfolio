@@ -11,7 +11,7 @@ export default function Navbar() {
         {/* LOGO ONLY */}
         <Link href="#hero" className="flex items-center group">
           <Image
-            src="/logo-darkfolio.jpg"
+            src="/darkfolio-logo.png"
             alt="darkfolio logo"
             width={140}
             height={40}

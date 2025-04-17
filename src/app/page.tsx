@@ -11,6 +11,7 @@ import ExperienceSection from '@/components/ExperienceSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import TechLoop from '@/components/TechLoop';
 
 export default function Home() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -82,6 +83,8 @@ export default function Home() {
           </div>
         </section>
 
+        {/* TECH LOOP */}
+          <TechLoop />
         {/* EXPERIENCE */}
         <section id="experience">
           <ExperienceSection />

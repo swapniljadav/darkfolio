@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useSwipeable } from 'react-swipeable';
 import ProjectModal from './ProjectModal';
 import { ChevronDown } from 'lucide-react';
 
@@ -56,17 +57,33 @@ export default function ProjectsSection() {
   const [paused, setPaused] = useState(false);
   const activeProject = projects.find((p) => p.id === activeId);
 
+  const scroll = (direction: 'left' | 'right') => {
+    const container = document.querySelector('#projects-container');
+    if (!container) return;
+    const scrollAmount = 320;
+    container.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => scroll('right'),
+    onSwipedRight: () => scroll('left'),
+    trackMouse: true,
+  });
+
   return (
     <section id="projects" className="w-full px-6 py-20 text-left relative overflow-hidden">
-      <h2 className="text-3xl sm:text-4xl font-sora font-bold mb-10 text-center">
-        Projects
-      </h2>
+      <h2 className="text-3xl sm:text-4xl font-sora font-bold mb-10 text-center">Projects</h2>
 
-      {/* Looping marquee scroll */}
+      {/* Swipe + scroll area */}
       <div
+        {...swipeHandlers}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         className="overflow-hidden"
+        id="projects-container"
       >
         <motion.div
           className="flex gap-6 w-max"
@@ -74,8 +91,8 @@ export default function ProjectsSection() {
             x: paused ? 0 : ['0%', '-50%'],
           }}
           transition={{
-            ease: 'easeInOut', // buttery easing
-            duration: 60, // slowed down from 30 to 60
+            ease: 'easeInOut',
+            duration: 60,
             repeat: Infinity,
           }}
         >

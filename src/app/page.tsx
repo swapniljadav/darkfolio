@@ -21,7 +21,7 @@ export default function Home() {
 
       <div className="relative z-10">
         {/* HERO SECTION */}
-        <section id="hero" className="pt-20 h-screen w-full flex flex-col justify-center items-center text-center px-6">
+        <section id="hero" className="pt-20 h-screen w-full flex flex-col justify-center items-center text-center px-6 bg-black">
           <FadeInWhenVisible>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-sora font-bold leading-tight">
               Hi, I’m Swapnil
@@ -29,7 +29,7 @@ export default function Home() {
           </FadeInWhenVisible>
 
           <FadeInWhenVisible>
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 font-inter mt-4 mb-6 max-w-md">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 font-inter mt-4 mb-6 max-w-md">
               I craft robust backend systems and clean, modern dashboards that scale.
             </p>
           </FadeInWhenVisible>
@@ -37,18 +37,29 @@ export default function Home() {
           <FadeInWhenVisible>
             <a
               href="#projects"
-              className="mt-20 text-gray-400 hover:text-white transition cursor-pointer"
+              className="mt-12 text-gray-400 hover:text-white transition cursor-pointer"
               aria-label="Scroll to Projects"
             >
               <ChevronDown className="w-5 h-5" />
             </a>
           </FadeInWhenVisible>
+
+          {/* Diagonal Divider - Hero to Projects */}
+          <div className="w-full h-[100px] bg-transparent overflow-hidden">
+            <svg
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              className="w-full h-full"
+            >
+              <polygon fill="#0f0f0f" points="0,100 100,0 100,100" />
+            </svg>
+          </div>
         </section>
 
         {/* PROJECTS SECTION */}
         <section
           id="projects"
-          className="w-full max-w-6xl mx-auto px-6 py-20 text-center"
+          className="w-full max-w-6xl mx-auto px-6 py-20 text-center bg-[#0f0f0f]"
         >
           <FadeInWhenVisible>
             <h2 className="text-3xl sm:text-4xl font-sora font-bold mb-12">
@@ -106,12 +117,23 @@ export default function Home() {
               <ChevronDown className="w-5 h-5" />
             </a>
           </FadeInWhenVisible>
+
+          {/* Diagonal Divider - Projects to About (inverted) */}
+          <div className="w-full h-[100px] bg-transparent overflow-hidden rotate-180">
+            <svg
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              className="w-full h-full"
+            >
+              <polygon fill="#000000" points="0,100 100,0 100,100" />
+            </svg>
+          </div>
         </section>
 
         {/* ABOUT SECTION */}
         <section
           id="about"
-          className="min-h-screen flex flex-col justify-center items-center text-center px-6"
+          className="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-black"
         >
           <FadeInWhenVisible>
             <h2 className="text-2xl sm:text-3xl font-sora font-bold mb-4">

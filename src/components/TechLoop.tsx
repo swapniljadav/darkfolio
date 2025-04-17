@@ -20,7 +20,7 @@ export default function TechLoop() {
   const loopIcons = [...icons, ...icons]; // duplicate for seamless loop
 
   return (
-    <div className="overflow-hidden bg-black py-12 border-y border-white/10">
+    <div className="overflow-hidden bg-black py-12">
       <motion.div
         className="flex gap-10 text-white items-center w-max px-10"
         animate={{ x: ['0%', '-50%'] }}

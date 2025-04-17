@@ -13,7 +13,7 @@ export default function Navbar() {
           <Image
             src="/darkfolio-logo.png"
             alt="darkfolio logo"
-            width={140}
+            width={120}
             height={40}
             className="h-auto w-[180px] object-contain transition-transform group-hover:scale-110"
             priority

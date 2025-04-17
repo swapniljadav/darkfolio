@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import FadeInWhenVisible from '@/components/FadeInWhenVisible';
 import Navbar from '@/components/Navbar';
@@ -15,7 +14,7 @@ import { ChevronDown } from 'lucide-react';
 
 export default function Home() {
   return (
-    <main className="relative overflow-x-hidden bg-black text-white scroll-smooth min-h-screen">
+    <main className="relative overflow-x-hidden bg-black text-white scroll-smooth min-h-screen scrollbar-hide">
       {/* Background Blobs */}
       <div className="pointer-events-none absolute top-[-150px] left-[-150px] w-[450px] h-[450px] bg-purple-600 rounded-full blur-[200px] opacity-30 z-0" />
       <div className="pointer-events-none absolute bottom-[-100px] right-[-150px] w-[400px] h-[400px] bg-pink-500 rounded-full blur-[200px] opacity-30 z-0" />

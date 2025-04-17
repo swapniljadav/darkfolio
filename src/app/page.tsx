@@ -10,24 +10,25 @@ import FeaturedCarousel from '@/components/FeaturedCarousel';
 import ExperienceSection from '@/components/ExperienceSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import TechLoop from '@/components/TechLoop';
+import { ChevronDown } from 'lucide-react';
 
 export default function Home() {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
   return (
     <main className="relative overflow-x-hidden bg-black text-white scroll-smooth min-h-screen">
-      {/* Blobs */}
+      {/* Background Blobs */}
       <div className="pointer-events-none absolute top-[-150px] left-[-150px] w-[450px] h-[450px] bg-purple-600 rounded-full blur-[200px] opacity-30 z-0" />
-      <div className="pointer-events-none absolute bottom-[-150px] right-[-150px] w-[400px] h-[400px] bg-pink-500 rounded-full blur-[200px] opacity-30 z-0" />
+      <div className="pointer-events-none absolute bottom-[-100px] right-[-150px] w-[400px] h-[400px] bg-pink-500 rounded-full blur-[200px] opacity-30 z-0" />
 
       <div className="relative z-10">
         <ScrollProgress />
         <Navbar />
 
-        {/* HERO */}
-        <section id="hero" className="pt-20 h-screen w-full flex flex-col justify-center items-center text-center px-6 bg-transparent">
+        {/* HERO SECTION */}
+        <section
+          id="hero"
+          className="pt-20 h-screen w-full flex flex-col justify-center items-center text-center px-6"
+        >
           <FadeInWhenVisible>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-sora font-bold leading-tight">
               Hi, I’m Swapnil
@@ -51,7 +52,7 @@ export default function Home() {
           </FadeInWhenVisible>
         </section>
 
-        {/* FEATURED */}
+        {/* FEATURED PROJECTS */}
         <section id="featured" className="pt-10">
           <FeaturedCarousel />
           <div className="mt-6 flex justify-center">
@@ -67,7 +68,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PROJECTS */}
+        {/* PROJECTS SECTION */}
         <section id="projects" className="pt-24">
           <ProjectsSection />
           <div className="mt-6 flex justify-center">
@@ -84,8 +85,9 @@ export default function Home() {
         </section>
 
         {/* TECH LOOP */}
-          <TechLoop />
-        {/* EXPERIENCE */}
+        <TechLoop />
+
+        {/* EXPERIENCE SECTION */}
         <section id="experience">
           <ExperienceSection />
           <div className="mt-6 flex justify-center">
@@ -101,10 +103,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ABOUT */}
+        {/* ABOUT SECTION */}
         <section
           id="about"
-          className="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-transparent pt-24"
+          className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24"
         >
           <FadeInWhenVisible>
             <h2 className="text-2xl sm:text-3xl font-sora font-bold mb-4">About Me</h2>
@@ -133,17 +135,6 @@ export default function Home() {
 
         {/* FOOTER */}
         <Footer />
-
-        {/* Back to top */}
-        <div className="py-4 flex justify-center">
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition"
-          >
-            <ChevronUp className="w-4 h-4" />
-            Back to Top
-          </button>
-        </div>
       </div>
     </main>
   );

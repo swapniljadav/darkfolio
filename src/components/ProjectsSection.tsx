@@ -93,7 +93,7 @@ export default function ProjectsSection() {
             <div
               key={project.id}
               onClick={() => setActiveId(project.id)}
-              className="snap-start shrink-0 cursor-pointer bg-gradient-to-br from-[#1c1c1c] to-[#101010] border border-gray-700 rounded-xl w-[300px] p-5 hover:border-white transition shadow-lg hover:shadow-white/10"
+              className="snap-start shrink-0 cursor-pointer opacity-80 hover:opacity-100 transition duration-300 bg-gradient-to-br from-[#1c1c1c] to-[#101010] border border-gray-700 rounded-xl w-[300px] p-5 hover:border-white shadow-lg hover:shadow-white/10"
             >
               <div className="rounded-md overflow-hidden mb-3 border border-gray-700">
                 <img

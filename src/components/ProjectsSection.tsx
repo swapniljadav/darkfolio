@@ -107,18 +107,7 @@ export default function ProjectsSection() {
           ))}
         </motion.div>
       </div>
-
-      {/* Chevron to Experience */}
-      <div className="mt-10 flex justify-center">
-        <a
-          href="#experience"
-          className="text-gray-400 hover:text-white transition"
-          aria-label="Scroll to Experience"
-        >
-          <ChevronDown className="w-5 h-5" />
-        </a>
-      </div>
-
+      
       {/* Modal */}
       {activeProject && (
         <ProjectModal

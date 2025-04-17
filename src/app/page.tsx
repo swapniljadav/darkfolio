@@ -7,7 +7,10 @@ import Navbar from '@/components/Navbar';
 import ScrollProgress from '@/components/ScrollProgress';
 import ProjectsSection from '@/components/ProjectsSection';
 import FeaturedCarousel from '@/components/FeaturedCarousel';
-import { ChevronDown } from 'lucide-react';
+import ExperienceSection from '@/components/ExperienceSection';
+import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Home() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -66,6 +69,33 @@ export default function Home() {
         {/* PROJECTS */}
         <section id="projects" className="pt-24">
           <ProjectsSection />
+          <div className="mt-6 flex justify-center">
+            <a href="#experience" aria-label="Scroll to Experience">
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+                className="text-gray-400 hover:text-white transition"
+              >
+                <ChevronDown className="w-5 h-5" />
+              </motion.div>
+            </a>
+          </div>
+        </section>
+
+        {/* EXPERIENCE */}
+        <section id="experience">
+          <ExperienceSection />
+          <div className="mt-6 flex justify-center">
+            <a href="#about" aria-label="Scroll to About">
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+                className="text-gray-400 hover:text-white transition"
+              >
+                <ChevronDown className="w-5 h-5" />
+              </motion.div>
+            </a>
+          </div>
         </section>
 
         {/* ABOUT */}
@@ -83,14 +113,34 @@ export default function Home() {
             </p>
           </FadeInWhenVisible>
           <FadeInWhenVisible>
-            <button
-              onClick={scrollToTop}
-              className="mt-10 px-5 py-2 rounded-full border border-white text-gray-300 hover:bg-white hover:text-black transition"
-            >
-              ↑ Back to Top
-            </button>
+            <a href="#contact" aria-label="Scroll to Contact">
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+                className="mt-10 text-gray-400 hover:text-white transition"
+              >
+                <ChevronDown className="w-5 h-5" />
+              </motion.div>
+            </a>
           </FadeInWhenVisible>
         </section>
+
+        {/* CONTACT */}
+        <ContactSection />
+
+        {/* FOOTER */}
+        <Footer />
+
+        {/* Back to top */}
+        <div className="py-4 flex justify-center">
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition"
+          >
+            <ChevronUp className="w-4 h-4" />
+            Back to Top
+          </button>
+        </div>
       </div>
     </main>
   );

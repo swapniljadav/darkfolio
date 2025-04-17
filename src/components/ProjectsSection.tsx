@@ -77,13 +77,13 @@ export default function ProjectsSection() {
     <section id="projects" className="w-full px-6 py-20 text-left relative overflow-hidden">
       <h2 className="text-3xl sm:text-4xl font-sora font-bold mb-10 text-center">Projects</h2>
 
-      {/* Swipe + scroll area */}
+      {/* Swipe + scroll area with snap */}
       <div
         {...swipeHandlers}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-        className="overflow-hidden"
         id="projects-container"
+        className="overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory"
       >
         <motion.div
           className="flex gap-6 w-max"
@@ -103,7 +103,7 @@ export default function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               initial={{ opacity: 0, y: 30 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="shrink-0 cursor-pointer bg-gradient-to-br from-[#1c1c1c] to-[#101010] border border-gray-700 rounded-xl w-[300px] p-5 hover:border-white transition shadow-lg hover:shadow-white/10"
+              className="shrink-0 cursor-pointer bg-gradient-to-br from-[#1c1c1c] to-[#101010] border border-gray-700 rounded-xl w-[300px] p-5 hover:border-white transition shadow-lg hover:shadow-white/10 snap-start"
             >
               <div className="rounded-md overflow-hidden mb-3 border border-gray-700">
                 <img
@@ -132,12 +132,12 @@ export default function ProjectsSection() {
         </motion.div>
       </div>
 
-      {/* Scroll to About Arrow */}
+      {/* Scroll to Experience Arrow */}
       <div className="mt-10 flex justify-center">
         <a
-          href="#about"
+          href="#experience"
           className="text-gray-400 hover:text-white transition"
-          aria-label="Scroll to About"
+          aria-label="Scroll to Experience"
         >
           <ChevronDown className="w-5 h-5" />
         </a>

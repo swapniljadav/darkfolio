@@ -1,37 +1,33 @@
 'use client';
 
-import { useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navbar() {
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-    const target = document.getElementById(sectionId);
-
-    if (target) {
-      const yOffset = -70; // adjust if navbar overlaps
-      const y = target.getBoundingClientRect().top + window.scrollY + yOffset;
-
-      window.scrollTo({ top: y, behavior: 'smooth' });
-
-      // Optional: force re-scroll even on repeat clicks
-      setTimeout(() => {
-        if (Math.abs(window.scrollY - y) < 5) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 300);
-    }
-  };
-
   return (
-    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-sm bg-black/70 border-b border-gray-800">
-      <nav className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        <div className="text-lg font-sora font-bold text-white">darkfolio</div>
-        <div className="space-x-6 text-sm font-inter text-gray-300">
-          <a href="#hero" onClick={(e) => handleSmoothScroll(e, 'hero')} className="hover:text-white transition">Home</a>
-          <a href="#projects" onClick={(e) => handleSmoothScroll(e, 'projects')} className="hover:text-white transition">Projects</a>
-          <a href="#about" onClick={(e) => handleSmoothScroll(e, 'about')} className="hover:text-white transition">About</a>
+    <nav className="w-full px-6 py-4 fixed top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+      <div className="max-w-6xl mx-auto flex justify-between items-center">
+
+        {/* LOGO ONLY */}
+        <Link href="#hero" className="flex items-center group">
+          <Image
+            src="/logo-darkfolio.jpg"
+            alt="darkfolio logo"
+            width={140}
+            height={40}
+            className="h-auto w-[180px] object-contain transition-transform group-hover:scale-110"
+            priority
+          />
+        </Link>
+
+        {/* NAV LINKS */}
+        <div className="space-x-6 font-inter text-sm text-gray-300 hidden sm:flex">
+          <Link href="#projects" className="hover:text-white transition">Projects</Link>
+          <Link href="#experience" className="hover:text-white transition">Experience</Link>
+          <Link href="#about" className="hover:text-white transition">About</Link>
+          <Link href="#contact" className="hover:text-white transition">Contact</Link>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
   );
 }

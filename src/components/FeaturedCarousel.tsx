@@ -9,7 +9,7 @@ const featuredProjects = [
     id: 'featured-adv',
     title: 'Aadhaar Vault Integration',
     description: 'Tokenization service with AES encryption, Oracle DB, and secure UIDAI API orchestration.',
-    imageUrl: 'https://picsum.photos/id/1015/1200/500',
+    imageUrl: '/adv.png',
     techStack: ['Spring Boot', 'Oracle', 'AES-GCM', 'ADV API'],
   },
   {
@@ -23,7 +23,7 @@ const featuredProjects = [
     id: 'featured-aa',
     title: 'Account Aggregator FIU',
     description: 'Complete FIU system with consent handling, token exchange, and ISO8583 transformation.',
-    imageUrl: 'https://picsum.photos/id/1013/1200/500',
+    imageUrl: '/aa.png',
     techStack: ['AA Gateway', 'Keycloak', 'NGINX', 'ISO8583'],
   },
 ];

@@ -10,7 +10,6 @@ interface ProjectModalProps {
   title: string;
   description: string;
   techStack: string[];
-  imageUrl?: string;
 }
 
 export default function ProjectModal({
@@ -19,7 +18,6 @@ export default function ProjectModal({
   title,
   description,
   techStack,
-  imageUrl = 'https://images.unsplash.com/photo-1661956604964-4c2685ce5453?auto=format&fit=crop&w=1200&q=80',
 }: ProjectModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -79,21 +77,9 @@ export default function ProjectModal({
               <X className="w-5 h-5" />
             </button>
 
-            {/* Image with grayscale → color */}
-            <div className="relative mb-6 overflow-hidden border border-white/10 rounded-md group">
-              <img
-                src={imageUrl}
-                alt={`${title} preview`}
-                className="w-full h-48 object-cover grayscale transition-all duration-700 ease-in-out will-change-transform group-hover:grayscale-0"
-                style={{ transform: 'translateZ(0)' }}
-              />
-            </div>
-
+            {/* Modal Content (No Image) */}
             <h2 className="text-2xl font-sora font-bold mb-4 text-white">{title}</h2>
-
-            <p className="text-gray-300 font-inter mb-6 whitespace-pre-line">
-              {description}
-            </p>
+            <p className="text-gray-300 font-inter mb-6 whitespace-pre-line">{description}</p>
 
             <div className="flex flex-wrap gap-2 mt-4">
               {techStack.map((tech) => (

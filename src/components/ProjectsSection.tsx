@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useSwipeable } from 'react-swipeable'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import FadeInWhenVisible from './FadeInWhenVisible'
 
 interface Project {
   title: string
@@ -68,6 +69,7 @@ export default function ProjectsSection() {
       {projects.length <= 2 ? (
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {projects.map((project, index) => (
+            <FadeInWhenVisible key={project.slug.current} delay={index * 0.1}>
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -95,6 +97,7 @@ export default function ProjectsSection() {
                 </div>
               </Link>
             </motion.div>
+            </FadeInWhenVisible>
           ))}
         </div>
       ) : (

@@ -1,29 +1,49 @@
-'use client';
+'use client'
 
-import { motion, useInView } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 
-export default function FadeInWhenVisible({ children }: { children: React.ReactNode }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { margin: '-10% 0px' });
-  const [hasEntered, setHasEntered] = useState(false);
+interface FadeInProps {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+  yOffset?: number
+}
+
+export default function FadeInWhenVisible({
+  children,
+  className = '',
+  delay = 0,
+  yOffset = 30,
+}: FadeInProps) {
+  const controls = useAnimation()
+  const [ref, inView] = useInView({
+    triggerOnce: false, // 🔁 trigger every time in view
+    threshold: 0.2,
+  })
 
   useEffect(() => {
-    if (isInView) {
-      setHasEntered(true);
+    if (inView) {
+      controls.start({ opacity: 1, y: 0 })
     } else {
-      setHasEntered(false); // reset when it goes out of view
+      controls.start({ opacity: 0, y: yOffset })
     }
-  }, [isInView]);
+  }, [inView, controls, yOffset])
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={hasEntered ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: yOffset }}
+      animate={controls}
+      transition={{
+        duration: 0.6,
+        ease: 'easeOut',
+        delay,
+      }}
+      className={className}
     >
       {children}
     </motion.div>
-  );
+  )
 }

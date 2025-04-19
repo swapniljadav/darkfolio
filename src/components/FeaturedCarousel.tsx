@@ -16,7 +16,7 @@ const featuredProjects = [
     id: 'featured-vkyc',
     title: 'Video KYC Platform',
     description: 'Real-time eKYC with video recording, OTP auth, and 3-tier backend architecture.',
-    imageUrl: '/vkyc.png',
+    imageUrl: 'https://picsum.photos/id/1012/1200/500',
     techStack: ['Spring Boot', 'OTP', 'Video KYC', 'PDFGen'],
   },
   {
@@ -45,6 +45,7 @@ export default function FeaturedCarousel() {
       <h2 className="text-3xl sm:text-4xl font-sora font-bold text-center mb-10">Featured Projects</h2>
 
       <div className="relative max-w-6xl mx-auto">
+        {/* Nav Arrows */}
         <button
           onClick={goPrev}
           className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 p-2 rounded-full hover:bg-black/70 transition"
@@ -72,10 +73,11 @@ export default function FeaturedCarousel() {
               <img
                 src={current.imageUrl}
                 alt={current.title}
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500"
+                className="w-full h-full object-cover transition duration-500"
               />
 
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col justify-end p-6">
+              {/* Text Overlay */}
+              <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6">
                 <h3 className="text-2xl sm:text-3xl font-sora font-bold text-white mb-2">{current.title}</h3>
                 <p className="text-gray-300 text-sm max-w-xl">{current.description}</p>
                 <div className="flex flex-wrap gap-2 mt-4 text-xs text-white font-mono">

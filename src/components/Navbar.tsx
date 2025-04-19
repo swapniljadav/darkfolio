@@ -10,14 +10,15 @@ export default function Navbar() {
 
         {/* LOGO ONLY */}
         <Link href="#hero" className="flex items-center group">
-          <Image
-            src="/darkfolio-logo.png"
-            alt="darkfolio logo"
-            width={120}
-            height={40}
-            className="h-auto w-[180px] object-contain transition-transform group-hover:scale-110"
-            priority
-          />
+        <Image
+          src="/darkfolio-logo.png"
+          alt="darkfolio logo"
+          width={360}
+          height={120}
+          className="h-auto w-[180px] object-contain transition-transform group-hover:scale-110"
+          priority
+        />
+
         </Link>
 
         {/* NAV LINKS */}

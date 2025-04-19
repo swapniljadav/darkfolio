@@ -1,67 +1,55 @@
-'use client';
+'use client'
 
-import { Briefcase, Building2, MapPin } from 'lucide-react';
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import * as Icons from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+
+interface Experience {
+  company: string
+  role: string
+  duration: string
+  description: string
+  icon?: string
+}
 
 export default function ExperienceSection() {
-  const experiences = [
-    {
-      title: 'Senior Manager – IT',
-      company: 'Bank of Baroda',
-      location: 'Hyderabad Data Centre',
-      duration: '2023 – Present',
-      description:
-        'Leading backend development and infrastructure for Aadhaar Vault, Account Aggregator, and KYC services.',
-    },
-    {
-      title: 'Manager – IT',
-      company: 'Bank of Baroda',
-      location: 'Hyderabad',
-      duration: '2019 – 2023',
-      description:
-        'Developed and maintained enterprise Java services for CBS operations, AEPS, and secure banking APIs.',
-    },
-    {
-      title: 'Assistant Manager – IT',
-      company: 'Bank of Baroda',
-      location: 'Mumbai',
-      duration: '2013 – 2019',
-      description:
-        'Started in CBS migration and evolved into core Java dev roles for Finacle integrations and backend tooling.',
-    },
-  ];
+  const [experience, setExperience] = useState<Experience[]>([])
+
+  useEffect(() => {
+    fetch('/api/experience')
+      .then((res) => res.json())
+      .then((data) => setExperience(data))
+  }, [])
 
   return (
-    <section id="experience" className="py-24 px-6 bg-black text-white">
-      <h2 className="text-3xl sm:text-4xl font-sora font-bold text-center mb-16">Experience</h2>
+    <section id="experience" className="w-full px-6 py-20 relative text-left overflow-hidden">
+      <h2 className="text-3xl sm:text-4xl font-sora font-bold mb-10 text-center">Experience</h2>
 
-      <div className="max-w-4xl mx-auto space-y-12">
-        {experiences.map((exp, idx) => (
-          <div key={idx} className="relative pl-6 border-l-2 border-purple-500">
-            <div className="absolute left-0 top-1.5 w-3 h-3 bg-purple-500 rounded-full" />
+      <div className="flex flex-col gap-8 max-w-4xl mx-auto">
+        {experience.map((exp, index) => {
+          const LucideIcon = (Icons[exp.icon as keyof typeof Icons] || Icons.Briefcase) as LucideIcon
 
-            <div className="pl-4">
-              <h3 className="text-xl font-bold font-sora flex items-center gap-2">
-                <Briefcase className="w-5 h-5 text-purple-400" />
-                {exp.title}
-              </h3>
-
-              <p className="text-gray-400 font-inter text-sm flex items-center gap-2 mt-1">
-                <Building2 className="w-4 h-4 text-gray-500" />
-                {exp.company}
-              </p>
-
-              <p className="text-gray-400 font-inter text-sm flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-gray-500" />
-                {exp.location}
-              </p>
-
-              <p className="text-purple-300 text-xs font-mono mt-1 mb-2">{exp.duration}</p>
-
-              <p className="text-sm text-gray-300 font-inter leading-relaxed">{exp.description}</p>
-            </div>
-          </div>
-        ))}
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="flex items-start gap-4 bg-white/5 border border-white/10 p-5 rounded-md shadow-md text-white"
+            >
+              <div className="p-2 rounded-full bg-white/10">
+                <LucideIcon className="w-6 h-6 text-purple-300" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">{exp.role}</h3>
+                <p className="text-sm text-purple-300">{exp.company} • {exp.duration}</p>
+                <p className="text-sm text-gray-300 mt-2 whitespace-pre-line">{exp.description}</p>
+              </div>
+            </motion.div>
+          )
+        })}
       </div>
     </section>
-  );
+  )
 }

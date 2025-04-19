@@ -60,7 +60,7 @@ export default function ProjectModal({
           />
 
           <motion.div
-            className="relative bg-white/10 border border-white/20 rounded-lg max-w-2xl w-full h-[80vh] overflow-y-auto text-left shadow-xl pt-16 px-6 pb-6"
+            className="relative bg-white/30 backdrop-blur-md border border-white/30 rounded-lg max-w-2xl w-full h-[80vh] overflow-y-auto text-left shadow-xl pt-16 px-6 pb-6"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}

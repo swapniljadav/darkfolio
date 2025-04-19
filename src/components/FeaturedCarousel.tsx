@@ -16,7 +16,7 @@ const featuredProjects = [
     id: 'featured-vkyc',
     title: 'Video KYC Platform',
     description: 'Real-time eKYC with video recording, OTP auth, and 3-tier backend architecture.',
-    imageUrl: 'https://picsum.photos/id/1012/1200/500',
+    imageUrl: '/vkyc.png',
     techStack: ['Spring Boot', 'OTP', 'Video KYC', 'PDFGen'],
   },
   {

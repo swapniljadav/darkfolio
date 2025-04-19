@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { useSwipeable } from 'react-swipeable'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
 interface Project {
@@ -12,46 +13,9 @@ interface Project {
   techStack?: string[]
 }
 
-function AnimatedProjectCard({ project, delay }: { project: Project; delay: number }) {
-  const { ref, inView } = useInView({
-    triggerOnce: false,
-    threshold: 0.2,
-  })
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.5, delay }}
-      className="bg-white/5 border border-white/10 p-5 rounded-lg shadow-lg text-white hover:shadow-white/10 transition duration-300"
-    >
-      <Link href={`/projects/${project.slug.current}`}>
-        <div className="cursor-pointer">
-          <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-          <p className="text-sm text-gray-300 mb-3">{project.description}</p>
-          <span className="text-xs text-purple-300 font-mono">/{project.slug.current}</span>
-
-          {project.techStack && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              {project.techStack.map((tech, index) => (
-                <span
-                  key={index}
-                  className="px-2 py-1 text-xs rounded-full border border-white/10 bg-white/10 text-white font-mono"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      </Link>
-    </motion.div>
-  )
-}
-
 export default function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>([])
+  const containerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     fetch('/api/projects')
@@ -59,13 +23,87 @@ export default function ProjectsSection() {
       .then((data) => setProjects(data))
   }, [])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollBy({
+          left: 320,
+          behavior: 'smooth',
+        })
+      }
+    }, 3500)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({
+        left: direction === 'left' ? -320 : 320,
+        behavior: 'smooth',
+      })
+    }
+  }
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => scroll('right'),
+    onSwipedRight: () => scroll('left'),
+    trackMouse: true,
+  })
+
   return (
     <section id="projects" className="w-full px-6 py-20 text-left relative overflow-hidden">
       <h2 className="text-3xl sm:text-4xl font-sora font-bold mb-10 text-center">Projects</h2>
 
-      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+      {/* Scroll buttons */}
+      {projects.length > 1 && (
+        <>
+          <button
+            onClick={() => scroll('left')}
+            className="hidden md:flex absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <button
+            onClick={() => scroll('right')}
+            className="hidden md:flex absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </>
+      )}
+
+      <div
+        {...swipeHandlers}
+        ref={containerRef}
+        className="overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide flex gap-6 px-2"
+      >
         {projects.map((project, index) => (
-          <AnimatedProjectCard key={index} project={project} delay={index * 0.1} />
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            className="snap-start shrink-0 cursor-pointer opacity-90 hover:opacity-100 transition duration-300 bg-gradient-to-br from-[#1c1c1c] to-[#101010] border border-gray-700 rounded-xl w-[300px] p-5 hover:border-white shadow-lg hover:shadow-white/10"
+          >
+            <Link href={`/projects/${project.slug.current}`}>
+              <div>
+                <h3 className="text-lg font-bold font-sora mb-2">{project.title}</h3>
+                <p className="text-sm text-gray-400 mb-3 line-clamp-4">{project.description}</p>
+                {project.techStack && (
+                  <div className="flex flex-wrap gap-1 text-xs text-gray-300 font-mono">
+                    {project.techStack.slice(0, 4).map((tech, idx) => (
+                      <span key={idx} className="bg-white/10 border border-white/10 px-2 py-1 rounded-full">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </section>

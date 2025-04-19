@@ -60,7 +60,7 @@ export default function ProjectModal({
           />
 
           <motion.div
-            className="relative bg-white/30 backdrop-blur-md border border-white/30 rounded-lg max-w-2xl w-full h-[80vh] overflow-y-auto text-left shadow-xl pt-16 px-6 pb-6"
+            className="relative bg-white/30 backdrop-blur-md border border-white/30 rounded-lg w-[90%] max-w-2xl max-h-[90vh] sm:h-[80vh] my-6 sm:my-0 overflow-y-auto text-left shadow-xl pt-16 px-6 pb-6"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
@@ -77,7 +77,7 @@ export default function ProjectModal({
               <X className="w-5 h-5" />
             </button>
 
-            {/* Modal Content (No Image) */}
+            {/* Modal Content */}
             <h2 className="text-2xl font-sora font-bold mb-4 text-white">{title}</h2>
             <p className="text-gray-300 font-inter mb-6 whitespace-pre-line">{description}</p>
 
